@@ -14,7 +14,7 @@ var humid
 var wind
 
 var cityList = []
-
+//local storage functions
 localStorageLoad()
 function localStorageLoad() {
   var retCityListString = localStorage.getItem("city")
@@ -41,7 +41,7 @@ if (cityList.length !== 0) {
   }
 }
 
-
+// gets location from input
 function getLocation() {
   locationUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+userLocation+"&limit=1&appid=a0544cd5b7dad5620c4fc9a9ec489c17"
   fetch(locationUrl)
@@ -54,7 +54,7 @@ function getLocation() {
     getWeather()
   });
 }
-
+//gets weather data from api
 function getWeather() {
   weatherURL = "http://api.openweathermap.org/data/2.5/forecast?lat="+lat+"&lon="+lon+"&cnt=41&units=imperial&appid=a0544cd5b7dad5620c4fc9a9ec489c17"
   fetch(weatherURL)
@@ -67,7 +67,7 @@ function getWeather() {
     setAllTheData()
   })
 }
-
+// sets weather data to var
 function setAllTheData() {
   cityName = lotsOfInfo.city.name
   console.log(cityName)
@@ -99,7 +99,7 @@ function setAllTheData() {
   localStorageSave()
   setTextStuff()
 }
-
+//adds html elements for history
 function addToHistory() {
   var newLi = document.createElement("li")
   newLi.setAttribute("class", "list-group-item")
@@ -110,7 +110,7 @@ function addToHistory() {
   var element = document.getElementById("city-history")
   element.appendChild(newLi)
 }
-
+// sets main body text to weather data
 function setTextStuff() {
   document.getElementById("city-name-and-date").textContent = cityName + " " + readableDate
   document.getElementById("temp").textContent = "Temp: " + temp + "°F"
@@ -118,7 +118,7 @@ function setTextStuff() {
   document.getElementById("humid").textContent = "Humidity: "+ humid + "%"
   forecast5Day()
 }
-
+// sets cards to weather data
 function forecast5Day() {
   
   var j = 0
@@ -152,7 +152,7 @@ function forecast5Day() {
     document.getElementById(i+"humid").textContent = "Humidity: "+ humid + "%"
   }
 }
-
+//searches clicked history item
 function getHistoryItem() {
   var temploc
   $(document).click(function(event) {
